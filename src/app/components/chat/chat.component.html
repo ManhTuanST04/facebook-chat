@@ -1,0 +1,78 @@
+<h2 class="page-title">Facebook Messenger For Business - MB Support 247</h2>
+
+<div class="chat-container">
+    <div class="chat-list">
+        <div
+            class="chat-list-item"
+            [ngClass]="{ 'chat-list-item-active': conversation.id === activeConversation.id }"
+            *ngFor="let conversation of lisConversations; index as i"
+            (click)="onClickConversation(conversation)"
+        >
+            <div class="chat-avatar">
+                {{
+                    getTextAvatarForListConsevation(getSenderForListConsevation(conversation).name)
+                }}
+            </div>
+            <div class="chat-info">
+                <p class="chat-user">
+                    {{ getSenderForListConsevation(conversation).name }} -
+                    {{ conversation.updatedTime | date : 'dd/MM/yyyy HH:mm:ss' }}
+                </p>
+                <p class="last-message">{{ conversation.snippet }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-window" *ngIf="isDisplayChatContainer()">
+        <div class="chat-header">
+            <div class="chat-avatar">
+                {{
+                    getTextAvatarForListConsevation(
+                        getSenderForListConsevation(activeConversation).name
+                    )
+                }}
+            </div>
+            <p>
+                {{ getSenderForListConsevation(activeConversation).name }}
+            </p>
+            <button class="refresh-button" (click)="refreshConversationMessage()">Refresh</button>
+        </div>
+        <div #messageContainer class="chat-messages">
+            <ng-container *ngFor="let msg of listMessage; index as i">
+                <div *ngIf="msg.from.id !== meId" class="message received">
+                    <div class="message-header">
+                        {{ msg.from.name }}
+                        <span class="timestamp" style="margin-left: 5px">{{
+                            msg.createdTime | date : 'dd/MM/yyyy HH:mm:ss'
+                        }}</span>
+                    </div>
+                    <div class="message-content">
+                        {{ msg.message }}
+                    </div>
+                </div>
+
+                <div *ngIf="msg.from.id === meId" class="message sent">
+                    <div class="message-header">
+                        <span class="timestamp">{{
+                            msg.createdTime | date : 'dd/MM/yyyy HH:mm:ss'
+                        }}</span>
+                    </div>
+                    <div class="message-content">
+                        {{ msg.message }}
+                    </div>
+                </div>
+            </ng-container>
+
+            <div #bottomMarker></div>
+        </div>
+        <div class="chat-input">
+            <textarea
+                #messageInput
+                type="text"
+                placeholder="Write a message..."
+                (keydown.enter)="sendMessage()"
+            ></textarea>
+            <button (click)="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>
