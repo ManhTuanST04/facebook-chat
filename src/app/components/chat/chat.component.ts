@@ -93,7 +93,7 @@ export class ChatComponent {
     getTextAvatarForListConsevation(username: any) {
         if (!username) return 'A';
 
-        return username.charAt(0).toUpperCase();
+        return username.substring(0, 2).toUpperCase();
     }
 
     onClickConversation(item: any) {
