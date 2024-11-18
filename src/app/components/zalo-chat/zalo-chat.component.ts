@@ -55,6 +55,7 @@ export class ZaloChatComponent {
                 id: mgsJson.sender.id,
                 message: mgsJson.message.text,
                 createdTime: mgsJson.timestamp,
+                type: "text",
                 from: {
                     id: mgsJson.sender.id,
                     name: this.activeConversation?.senders[0].name,
