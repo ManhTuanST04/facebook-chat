@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ChatService } from '../../services/chat.service';
+import { FbChatService } from '../../services/fb-chat.service';
 
 @Component({
-    selector: 'app-chat',
+    selector: 'app-facebook-chat',
     standalone: true,
     imports: [CommonModule],
-    templateUrl: './chat.component.html',
-    styleUrl: './chat.component.scss'
+    templateUrl: './facebook-chat.component.html',
+    styleUrl: './facebook-chat.component.scss'
 })
-export class ChatComponent {
+export class FacebookChatComponent {
     meId = '416544284885518';
     @ViewChild('messageInput') messageInput!: ElementRef;
     @ViewChild('messageContainer') messageContainer!: ElementRef;
@@ -19,7 +19,7 @@ export class ChatComponent {
     activeConversation: any = {};
     listMessage: any[] = [];
 
-    constructor(private chatService: ChatService) {}
+    constructor(private chatService: FbChatService) {}
 
     ngOnInit(): void {
         this.getConversations();

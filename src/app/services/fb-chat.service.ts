@@ -6,13 +6,13 @@ import { environment } from '../../environments/environment';
 @Injectable({
     providedIn: 'root'
 })
-export class ChatService {
+export class FbChatService {
     constructor(private httpClient: HttpClientService) {}
 
     getListConversation() {
         const options: HttpOptions = {
             url: environment.hostApi,
-            path: 'v1/conversations',
+            path: 'v1/fb/conversations',
             params: {},
             body: {}
         };
@@ -23,7 +23,7 @@ export class ChatService {
     getListMessage(conversationId: String) {
         const options: HttpOptions = {
             url: environment.hostApi,
-            path: 'v1/messages',
+            path: 'v1/fb/messages',
             params: {
                 conversationId
             },
@@ -36,7 +36,7 @@ export class ChatService {
     sendMessage(recipientId: String, message: String) {
         const options: HttpOptions = {
             url: environment.hostApi,
-            path: 'v1/messages',
+            path: 'v1/fb/messages',
             params: {},
             body: {
                 recipientId,

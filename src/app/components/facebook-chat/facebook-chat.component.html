@@ -1,6 +1,6 @@
 <div class="content">
     <div class="container p-0">
-        <h1 class="h3 mb-3 mt-2">Messages For Business - App Chat 247</h1>
+        <h1 class="h3 mb-3 mt-2">Facebook Messenger For Business - App Chat 247</h1>
         <div class="card">
             <div class="row g-0">
                 <div class="col-12 col-lg-5 col-xl-3 border-right">
@@ -41,7 +41,7 @@
                             <div class="flex-grow-1 ml-3">
                                 {{ getSenderForListConsevation(conversation).name }}
                                 <div class="small">
-                                    <span class="fas fa-circle chat-online"></span>
+                                    <span class="fas fa-circle chat-online">{{conversation.updatedTime | date : 'dd/MM HH:mm'}}</span>
                                     {{ conversation.snippet }}
                                 </div>
                             </div>
