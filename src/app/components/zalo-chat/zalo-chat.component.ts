@@ -55,7 +55,9 @@ export class ZaloChatComponent {
                 id: mgsJson.sender.id,
                 message: mgsJson.message.text,
                 createdTime: mgsJson.timestamp,
-                type: "text",
+                type: '',
+                url: '',
+                thumb: '',
                 from: {
                     id: mgsJson.sender.id,
                     name: this.activeConversation?.senders[0].name,
@@ -64,12 +66,20 @@ export class ZaloChatComponent {
                 }
             };
 
+            if (!mgsJson.message.attachments) {
+                newMessage.type = 'text';
+            } else {
+                newMessage.type = mgsJson?.message?.attachments[0]?.type;
+                newMessage.url = mgsJson?.message?.attachments[0]?.payload?.url;
+                newMessage.thumb = mgsJson?.message?.attachments[0]?.payload?.thumbnail;
+            }
+
             this.listMessage.push(newMessage);
             this.listMessage = this.listMessage?.sort((a: any, b: any) => {
                 return a.createdTime - b.createdTime;
             });
 
-            this.toastr.success(newMessage.message, newMessage.from.name, {
+            this.toastr.success(newMessage?.message, newMessage?.from?.name, {
                 timeOut: 3000,
                 progressBar: true,
                 progressAnimation: 'decreasing'
@@ -239,6 +249,7 @@ export class ZaloChatComponent {
             case 'text': {
                 return msg.message;
             }
+            case 'image':
             case 'photo': {
                 return `<img src=${msg.thumb} alt="img" width="200" height="auto">`;
             }
